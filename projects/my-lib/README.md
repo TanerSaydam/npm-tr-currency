@@ -9,6 +9,8 @@ This package have an standalone pipe. If you want to use it you have to import `
 
 ## Installation
 ```typescript
+import { TrCurrencyPipe } from 'tr-currency';
+
 imports: [ 
     TrCurrencyPipe
 ]

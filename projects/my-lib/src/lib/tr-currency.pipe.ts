@@ -52,7 +52,7 @@ export class TrCurrencyPipe implements PipeTransform {
       newMoney = "-" + newMoney;
     }    
     return newMoney;
-  }
+  } 
 
   convertNumber(value: number): number {
     const stringValue = value.toString();
