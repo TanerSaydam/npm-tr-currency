@@ -1,5 +1,5 @@
 # TrCurrency
-This library supporting Angular version 17
+This library supporting Angular version 18
 
 ## Install
 `npm i tr-currency`
