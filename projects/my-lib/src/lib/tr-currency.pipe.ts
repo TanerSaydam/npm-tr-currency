@@ -7,6 +7,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TrCurrencyPipe implements PipeTransform {
 
   transform(value: number, symbol: string = "", isCurrencyFront: boolean = true, fraction:number = 2): string {
+    if(fraction < 0) fraction = 0;
+
     if (value == 0) {      
       return `0,${'0'.repeat(fraction)} ${symbol}`;
     }
@@ -40,10 +42,20 @@ export class TrCurrencyPipe implements PipeTransform {
       }
     }
 
-    if(!isCurrencyFront)
-      newMoney = `${newMoney},${penny} ${symbol}`;
-    else  
-      newMoney = `${symbol}${newMoney},${penny}`;
+    if(!isCurrencyFront){
+      if(fraction === 0){
+        newMoney = `${newMoney} ${symbol}`;
+      }else{
+        newMoney = `${newMoney},${penny} ${symbol}`;
+      }
+    }
+    else{
+      if(fraction === 0){
+        newMoney = `${symbol}${newMoney}`;
+      }else{
+        newMoney = `${symbol}${newMoney},${penny}`;
+      }      
+    }
 
     if(isValueNegative){
       newMoney = "-" + newMoney;
