@@ -6,9 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class TrCurrencyPipe implements PipeTransform {
 
-  transform(value: number, symbol: string = "", isCurrencyFront: boolean = false): string {
-    if (value == 0) {            
-      return "0,00 " + symbol;
+  transform(value: number, symbol: string = "", isCurrencyFront: boolean = true, fraction:number = 2): string {
+    if (value == 0) {      
+      return `0,${'0'.repeat(fraction)} ${symbol}`;
     }
 
     let isValueNegative:boolean = false;
@@ -17,19 +17,16 @@ export class TrCurrencyPipe implements PipeTransform {
       value *= -1;
     }
 
+    value = parseFloat(value.toFixed(fraction)); // Küsuratları yuvarlama
+
     let money = value.toString().split(".")
     let newMoney = "";
     let lira = money[0];
-    let penny = "00";
-    if (money.length > 1) {
-      penny = money[1]
-      if (penny.length == 1) {
-        penny = penny + "0"
-      }
+    let penny = money.length > 1 ? money[1] : "";
 
-      if (penny.length > 1) {
-        penny = this.convertNumber(+penny).toString();
-      }
+    // Küsuratları doğru uzunlukta yapma
+    if (penny.length < fraction) {
+      penny = penny + "0".repeat(fraction - penny.length);
     }
 
     let count = 0;
@@ -37,7 +34,7 @@ export class TrCurrencyPipe implements PipeTransform {
       if (count == 3 && count < (lira.length)) {
         newMoney = lira[i-1] + "." + newMoney 
         count = 1;
-      }else{
+      } else {
         newMoney = lira[i-1] + newMoney
         count++;
       }
@@ -46,24 +43,11 @@ export class TrCurrencyPipe implements PipeTransform {
     if(!isCurrencyFront)
       newMoney = `${newMoney},${penny} ${symbol}`;
     else  
-     newMoney = `${symbol}${newMoney},${penny}`;
+      newMoney = `${symbol}${newMoney},${penny}`;
 
     if(isValueNegative){
       newMoney = "-" + newMoney;
     }    
     return newMoney;
-  } 
-
-  convertNumber(value: number): number {
-    const stringValue = value.toString();
-    if (stringValue.length > 2) {
-      const remainingValue = parseInt(stringValue.substr(2));
-      if (remainingValue > 5) {
-        return parseInt(stringValue.substr(0, 2)) + 1;
-      }
-      return parseInt(stringValue.substr(0, 2));
-    }
-    return value;
   }
-
 }

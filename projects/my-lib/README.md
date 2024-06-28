@@ -34,7 +34,7 @@ imports: [
 
 ## Output
 ```typescript
-14505.50 ==> 14.505,00 ₺
+14505.50 ==> 14.505,50 ₺
 ```
 
 ## Usage
@@ -45,5 +45,20 @@ imports: [
 
 ## Output
 ```typescript
-14505.50 ==> ₺14.505,00
+14505.50 ==> ₺14.505,50
+```
+
+## Usage
+```typescript
+//If you want the more or less fraction, you can stil do it with a parameter.
+{{money | trCurrency : '₺' : true, 1}}
+{{money | trCurrency : '₺' : true, 2}}
+{{money | trCurrency : '₺' : true, 3}}
+```
+
+## Output
+```typescript
+14505.50 ==> ₺14.505,5
+14505.50 ==> ₺14.505,50
+14505.50 ==> ₺14.505,500
 ```
