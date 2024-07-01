@@ -9,8 +9,20 @@ export class TrCurrencyPipe implements PipeTransform {
   transform(value: number, symbol: string = "", isCurrencyFront: boolean = true, fraction:number = 2): string {
     if(fraction < 0) fraction = 0;
 
-    if (value == 0) {      
-      return `0,${'0'.repeat(fraction)} ${symbol}`;
+    if (value === 0 || value === undefined) { 
+      if(fraction === 0){
+        if(isCurrencyFront){
+          return `${symbol}0`
+        }else{
+          return `0 ${symbol}`
+        }
+      }else{
+        if(isCurrencyFront){
+          return `${symbol}0,${'0'.repeat(fraction)}`;
+        }else{
+          return `0,${'0'.repeat(fraction)} ${symbol}`;
+        }        
+      }      
     }
 
     let isValueNegative:boolean = false;
@@ -19,7 +31,7 @@ export class TrCurrencyPipe implements PipeTransform {
       value *= -1;
     }
 
-    value = parseFloat(value.toFixed(fraction)); // Küsuratları yuvarlama
+    value = parseFloat(value.toFixed(fraction));
 
     let money = value.toString().split(".")
     let newMoney = "";
