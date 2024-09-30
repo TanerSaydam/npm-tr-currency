@@ -31,7 +31,11 @@ export class TrCurrencyPipe implements PipeTransform {
       value *= -1;
     }
 
-    value = parseFloat(value.toFixed(fraction));
+    if (!isNaN(value)) {
+      value = parseFloat(value.toFixed(fraction));
+    } else {
+      value = 0;
+    }
 
     let money = value.toString().split(".")
     let newMoney = "";
