@@ -8,8 +8,7 @@ export class TrCurrencyPipe implements PipeTransform {
 
   transform(value: number, symbol: string = "", isCurrencyFront: boolean = true, fraction: number = 2): string {
     if (fraction < 0) fraction = 0;
-
-    // Handle cases where value is not a number
+    
     if (value === undefined || value === null || isNaN(Number(value))) {
       if (fraction === 0) {
         return isCurrencyFront ? `${symbol}0` : `0 ${symbol}`;

@@ -1,13 +1,15 @@
 {
   "name": "tr-currency",
-  "version": "18.0.5",
+  "version": "19.0.1",
   "peerDependencies": {
-    "@angular/common": "^18.0.3",
-    "@angular/core": "^18.0.3"
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
   "sideEffects": false,
-  "repository": {"url": "https://github.com/TanerSaydam/npm-tr-currency"}
+  "repository": {
+    "url": "https://github.com/TanerSaydam/npm-tr-currency"
+  }
 }
